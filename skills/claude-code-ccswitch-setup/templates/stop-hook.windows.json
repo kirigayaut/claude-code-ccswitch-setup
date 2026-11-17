@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell.exe",
+            "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-WindowStyle", "Hidden", "-File", "C:\\Users\\<用户名>\\.claude\\notify\\claude-notify.ps1"],
+            "async": true
+          }
+        ]
+      }
+    ]
+  }
+}

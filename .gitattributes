@@ -1,0 +1,2 @@
+# Keep scripts byte-for-byte (claude-notify.ps1 must stay UTF-8 with BOM and CRLF for Windows PowerShell 5.1)
+*.ps1 -text
