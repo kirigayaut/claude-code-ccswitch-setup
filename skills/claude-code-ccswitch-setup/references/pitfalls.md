@@ -17,6 +17,7 @@
 | `python` 运行后返回 9009（Windows） | 那只是 Microsoft Store 的占位程序 | 别用它，用 `winsqlite3.dll` |
 | 通知弹出来了，但中文是乱码（Windows） | 脚本丢了 UTF-8 BOM | 用复制文件的方式重新复制，不要另存 |
 | 通知弹出来了，但没有声音（Windows） | 脚本本身不放声音，或者电脑没有可用的扬声器 | 先确认电脑能出声，再在脚本里加一行播放 `C:\Windows\Media\*.wav` |
-| winget 报 `0x8a15000f 缺少源所需的数据`，或者 `api.github.com` 连不上（Windows 实测，发生在装 git/gh 时，不在安装步骤里） | Windows 开了系统代理（`127.0.0.1:<端口>`），代理对这些域名不通；不走代理时可以直连 | 先用 `curl.exe --noproxy '*'` 测一下。用户同意的话，从官方发布页下载，下载后核对 SHA256。git 和 gh 默认不读 Windows 的系统代理设置（推断：两者直连都成功了） |
+| winget 报 `0x8a15000f 缺少源所需的数据`，或者 `api.github.com` 连不上（Windows 实测，发生在装 git/gh 时，不在安装步骤里） | Windows 开了系统代理（`127.0.0.1:<端口>`），代理对这些域名不通；不走代理时可以直连 | 先用 `curl.exe --noproxy '*'` 测一下。用户同意的话，从官方发布页下载，下载后核对 SHA256 |
+| `git push` 报 `Empty reply from server` / `Connection was reset`（Windows 实测） | git 不读 Windows 的系统代理设置，只认 `http.proxy` 配置和环境变量，所以会直连；在某些网络下直连 github.com 会被重置。gh 同样直连，访问 api.github.com 反而正常 | 只给这一次推送加代理：`git -c http.proxy=http://127.0.0.1:<端口> push`。哪条路能通取决于网络环境，直连和走代理都试一下 |
 | `datetime(created_at,'unixepoch','localtime')` 返回 NULL（Windows 实测，winsqlite3 3.43.2） | 原因没查 | 直接用整数比较 `created_at` |
 | 同时开着两个会话，都在执行安装步骤 | 两边都可能改 `settings.json`，会互相覆盖 | 只保留一个会话执行，另一个停下或者只读 |
